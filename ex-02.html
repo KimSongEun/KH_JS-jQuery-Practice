@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/myReset.css">
+    <title>JS 입력 삭제 출력</title>
+</head>
+
+<body>
+    <!-- <form action="#" method="get" id="frmRecp"> -->
+    <table>
+        <tr>
+            <th>구매자:</th>
+            <td><input type="text" name="name" id="name" class="iv" placeholder="구매자 이름 입력"></td>
+        </tr>
+        <tr>
+            <th>재료:</th>
+            <td><input type="text" name="ingredient" id="ingredient" class="iv" placeholder="재료명"></td>
+        </tr>
+        <tr>
+            <th>단가:</th>
+            <td><input type="text" name="price" id="price" class="iv" placeholder="단가입력"></td>
+        </tr>
+        <tr>
+            <th>수량:</th>
+            <td><input type="text" name="amount" id="amount" class="iv" placeholder="수량"></td>
+        </tr>
+    </table>
+    <button id="btnInsert" onclick="printValue();">입력</button>
+    <!-- </form> -->
+    <!-- <div id="print"></div> 예전방식 -->
+
+
+    <script>
+        let eleCnt = 0;   // 전역이면서 계속 지속되는 변수 refresh 되면 다시 재정의
+        function printValue() {
+            var divEle = document.createElement("p");
+            eleCnt++;  // 증가
+            // 불필요WHY(this.parentElement사용) // divEle.setAttribute("class", "pele ele_"+ eleCnt);
+            var inputEls = document.getElementsByClassName("iv");
+            var name = inputEls[0].value;
+            var ingredient = inputEls[1].value;
+            var price = inputEls[2].value.trim();
+            var amount = inputEls[3].value.trim();
+
+            // var printArea = document.getElementById("print"); 예전방식 
+            divEle.innerHTML = "";
+            divEle.innerHTML = divEle.innerHTML + "구매자: " + name + "님<br>";
+            divEle.innerHTML += "구매 재료: " + ingredient + "<br>";
+            divEle.innerHTML += "단가: " + price + "원<br>";
+            divEle.innerHTML += "수량: " + amount + "개<br>";
+            divEle.innerHTML += "총 가격: " + amount * price + "원<br>";
+            // 방법1
+            //divEle.innerHTML += '<button id="ele_'+eleCnt+'">삭제</button>';
+            // 방법2
+            var btnEle = document.createElement("button");
+            btnEle.setAttribute("id", "ele_" + eleCnt);
+            btnEle.innerText = "삭제";
+            divEle.appendChild(btnEle);
+            // 방법2 여기까지//
+
+            document.body.appendChild(divEle);
+
+            document.getElementById("ele_" + eleCnt).onclick = function () {
+                this.parentElement.remove();
+            };
+
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 JS 유효성체크</title>
+    <script>
+        window.addEventListener("load", pageLoadedHandler);
+        function pageLoadedHandler(){
+            // submit 버튼이 눌려지면 이벤트 등록
+            // document.getElementById("submit").addEventListener("click", btnSubmit);            
+            document.getElementById("btn1").addEventListener("click", btnSubmit);            
+        }
+
+        // common function
+        function checkNullValue(n1){
+            if(n1.value.length ==0){
+                alert("입력해주세요.");
+                n1.focus();
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+
+        //  submit 클릭 관련 함수는 onload 밖에 정의하는 경우가 많음. why? 인라인 형태로 자주 호출될 가능성이 높으므로..
+        function btnSubmit(){
+                console.log("btnSubmit 진입");
+
+                var pw1 = document.getElementById("pwd");
+                var pw2 = document.getElementById("repwd");
+
+                var pw1value = pw1.value;
+                var pw2value = pw2.value;
+
+                // 입력되지 않은 칸이 있는지 확인
+                // 방법3
+                var inputElements = document.getElementsByTagName("input");
+                // element 형태인 경우 foreach 메소드 동작되지 않음. inputElements.forEach(checkNullValue);
+                // 해결 기존 for 사용
+                for(var i=0; i<inputElements.length; i++) {
+                    var cnv = checkNullValue(inputElements[i]);
+                    if(cnv == false) {return false;}
+                }
+
+
+                // 방법2
+                // var cnv = checkNullValue(document.getElementById("id"));
+                // if(cnv ==false) { return false; }
+                // var cnv = checkNullValue(document.getElementById("pwd"));
+                // if(cnv ==false) { return false; }
+                // var cnv = checkNullValue(document.getElementById("repwd"));
+                // if(cnv ==false) { return false; }
+                // var cnv = checkNullValue(document.getElementById("name"));
+                // if(cnv ==false) { return false; }
+
+                // 방법1
+                // if(document.getElementById("id").value.length == 0) { 
+                //     alert("입력해주세요.");
+                //     document.getElementById("id").focus();
+                //     return false;
+                // }
+                // if(document.getElementById("pwd").value.length == 0) { 
+                //     alert("입력해주세요.");
+                //     document.getElementById("pwd").focus();
+                //     return false;
+                // }
+                // if(document.getElementById("repwd").value.length == 0) { 
+                //     alert("입력해주세요.");
+                //     document.getElementById("repwd").focus();
+                //     return false;
+                // }
+                // if(document.getElementById("name").value.length == 0) { 
+                //     alert("입력해주세요.");
+                //     document.getElementById("name").focus();
+                //     return false;
+                // }
+
+                // 비밀번호 6글자 이상, 12글자 이하 ==> 정상
+                // 경고 popup "조건에 맞게 입력해주세요"  // action으로 이동되지 않음.
+                // if(pw1value.length <= 6 || pw1value.length >12) {
+                //     alert("6~12자 조건에 맞게 입력해주세요");
+                //     return false; // action으로 이동되지 않음
+                // } 
+
+                // 비밀번호와 비밀번호 확인란이
+                // 동일하지 않으면 alert 창으로 "동일하게 입력해주세요"   // action으로 이동되지 않음.
+                if(pw1value != pw2value) {
+                    alart("동일하게 입력해주세요");
+                    return false;
+                }
+
+                //추가
+                // 영어 대소문자 + 숫바 + 특수문자 (_#) 유효, 6글자 이상, 12글자 이하
+                // 정규표현식 RegExp
+                // /패턴/
+                // ^ 시작문자, $ 끝 부분
+                // [] 문자 1개, 그 안에 유효한 문자, 예) [0123456789] [0~9]
+                // {3} 자릿수
+                // var regExp = /^[A-Za-z0-9_#]{6,12}$/;
+                // 첫글자는 영어 대문자이고 영문자 + 숫바 + 특수문자 (_!) 유효, 8글자 이상, 16글자 이하
+                var regExp = /^[A-Z][A-Za-z0-9_!]{7,15}$/;
+                if(!regExp.test(pw1value)) {
+                    alert("영어 대소문자 + 숫자 + 특수문자(_#) 조건에 맞게 입력해주세요");
+                    return false;
+                }
+
+                // 이름 입력은 한글입력만 가능 2글자 이상 10글자 이하
+                var name = document.getElementById("name").value;
+                var regExpName = /^[가-힣]{2,10}$/;
+                if(!regExpName.test(name)) {
+                    alert("영어 대소문자 + 숫자 + 특수문자(_#) 조건에 맞게 입력해주세요");
+                    return false;
+                }
+
+                // 휴대폰번호 입력은
+                // 첫번째 입력란에 010, 011, 016, 017, 018, 019 유효,
+                // 두번째 입력란은 숫자 3-4글자 입력
+                // 세번째 입력란은 숫자 4글자 입력
+                var tel1 = document.getElementById("tel1").value;
+                var tel2 = document.getElementById("tel2").value;
+                var tel3 = document.getElementById("tel3").value;
+                var regExpTel1 = /^01[016789]$/;
+                if(!regExpPhone1.test(tel1)) {
+                    alert("010, 011, 016, 017, 018, 019 유효 조건에 맞게 입력해주세요");
+                    return false;
+                }
+                var regExpTel2 = /^[0~9]{3,4}$/;
+                if(!regExpTel2.test(tel2)) {
+                    alert("3-4 자리 유효 조건에 맞게 입력해주세요");
+                    return false;
+                }
+                var regExpTel3 = /^[0~9]{4}$/;
+                if(!regExpTel3.test(tel3)) {
+                    alert("4 자리 유효 조건에 맞게 입력해주세요");
+                    return false;
+                }
+
+                // 주민번호 입력은
+                // 첫번째 입력란은 숫자 6자리
+                // 두번째 입력란은 숫자 7자리, 첫글자는 1, 2, 3, 4 입력가능
+                var idNo1 = document.getElementById("idNo1").value;
+                var idNo2 = document.getElementById("idNo2").value;
+                var regExpIdNo1 = /^[0~9]{6}$/;
+                if(!regExpIdNo1.test(idNo1)) {
+                    alert("6글자 숫자 유효 조건에 맞게 입력해주세요");
+                    return false;
+                }
+                var regExpIdNo2 = /^[1234][0~9]{6}$/;
+                if(!regExpIdNo2.test(idNo2)) {
+                    alert("1234로 시작하고 7글자 숫자 유효 조건에 맞게 입력해주세요");
+                    return false;
+                }
+
+                // 그 외는 action으로 데이터 전달하면서 이동됨.
+                // {
+                //     var frm1 = document.getElementById("frmId1");
+                //     if(document.getElementById("id").value == "admin"){
+                //         frm1.action="#관리자페이지";
+                //     } else {
+                //         frm1.action = "#일반페이지";
+                //     }
+                //     frm1.method = "post";
+                //     frm1.submit();
+                //     // return true;
+                // }
+        }
+    </script>
+</head>
+<body>
+        <!-- <form action="#" method="post" id="frmId1"> -->
+        <form  id="frmId1">
+            <fieldset>
+                <legend>회원가입</legend>
+                <label for="id">아이디 : </label>
+                <input type="text" id="id" name="id" class="input" required>
+                <span id="checkid"></span>
+                <br><br>
+                <label for="pwd">비밀번호 : </label>
+                <input type="password" id="pwd" name="pwd" class="input" required>
+                <br><br>
+                <label for="repwd">비밀번호 확인 : </label>
+                <input type="password" id="repwd" class="input" required>
+                <!-- action 으로 전달하지 않을 거면 name 설정하지 않아도 됨.
+                    <input type="password" id="repwd" name="repwd" required> -->
+                <span id="checkpwd"></span>
+                <br><br>
+                <label for="name">이름 : </label>
+                <input type="text" id="name" name = "name" class="input" required>
+                <br><br>
+                <label for="tel1">휴대폰번호 : </label>
+                <input type="text" id="tel1" name = "tel1" class="input" required> -
+                <input type="text" id="tel2" name = "tel2" class="input" required> -
+                <input type="text" id="tel3" name = "tel3" class="input" required>
+                <br><br>
+                <label for="idNo1">주민번호 : </label>
+                <input type="text" id="idNo1" name = "idNo1" class="input" required> -
+                <input type="text" id="idNo2" name = "idNo2" class="input" required> 
+                <br><br>
+            <!-- 해결 안됨. <button type = "submit" id = "submit">회원가입</button> -->
+            <!-- 문제가 좀 있음. <button type = "submit" id = "submit" onclick = "return btnSubmit();">회원가입</button> -->
+            <button type = "button" id = "btn1">버튼타입제출</button>
+        </fieldset>
+    </form>
+</body>
+</html>

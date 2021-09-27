@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href = "./css/myReset.css" rel="stylesheet" type = "text/css">
+
+    <style>
+        input[type=text] {
+            border:0;
+        }
+        td, th {
+            padding : 10px 10px;
+        }
+    </style>
+    <!-- 자바스크립트 
+    <script src="./js/myCafe.js"></script> -->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./js/myCafejquery.js"></script>
+    <title>JS 엑셀같은 표 계산</title>
+</head>
+
+<body>
+    <form action="#" method="get" id = "frmCal">
+        <table border="1">
+        <tr>
+            <th>메뉴</th>
+            <th>가격</th>
+            <th>수량</th>
+            <th>합계</th>
+        </tr>
+        <tr>
+            <td>아메리카노</td>
+            <td>2500</td>
+            <td><input type="text" name="c1" id = "c1" class = "c"></td>
+            <td><input type="text" name="c1Price" id = "c1Price" class = "p" readonly></td>
+        </tr>
+        <tr>
+            <td>라떼</td>
+            <td>3000</td>
+            <td><input type="text" name="c2" id = "c2" class = "c"></td>
+            <td><input type="text" name="c2Price" id = "c2Price" class = "p" readonly></td>
+        </tr>
+        <tr>
+            <td>생강라떼</td>
+            <td>4500</td>
+            <td><input type="text" name="c3" id = "c3" class = "c"></td>
+            <td><input type="text" name="c3Price" id = "c3Price" class = "p" readonly></td>
+        </tr>
+        <tr>
+            <th>합계</th>
+            <th></th>
+            <th><input type="text" name="cTotalCnt" id = "cTotalCnt" class = "c" readonly></th>
+            <th><input type="text" name="cTotalPrice" id = "cTotalPrice" class = "p" readonly></th>
+        </tr>
+        <tr>
+            <td colspan = "4">
+                <input type = "button" value="계산하기">
+                <input type = "reset">
+            </td>
+        </tr>
+        </table>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/myReset.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>JS 입력 삭제 출력</title>
+</head>
+
+<body>
+    <!-- <form action="#" method="get" id="frmRecp"> -->
+        <table>
+            <tr>
+                <th>구매자:</th>
+                <td><input type="text" name="name" id="name" class="iv" placeholder="구매자 이름 입력"></td>
+            </tr>
+            <tr>
+                <th>재료:</th>
+                <td><input type="text" name="ingredient" id="ingredient" class="iv" placeholder="재료명"></td>
+            </tr>
+            <tr>
+                <th>단가:</th>
+                <td><input type="text" name="price" id="price" class="iv" placeholder="단가입력"></td>
+            </tr>
+            <tr>
+                <th>수량:</th>
+                <td><input type="text" name="amount" id="amount" class="iv" placeholder="수량"></td>
+            </tr>
+        </table>
+        <button id="btnInsert" onclick="printValue();">입력</button>
+    <!-- </form> -->
+    <!-- <div id="print"></div> -->
+
+
+    <script>
+        let eleCnt = 0;   // 전역이면서 계속 지속되는 변수 refresh 되면 다시 재정의
+        function printValue() {
+            eleCnt++;  // 증가
+
+            var name = $("#name").val();
+            var ingredient = $("#ingredient").val();
+            var price = $("#price").val();
+            var amount = $("#amount").val();
+            var varInnerHTML = "";
+            varInnerHTML += "구매자: " + name +"님<br>";
+            varInnerHTML += "구매 재료: " + ingredient +"<br>";
+            varInnerHTML += "단가: " + price +"원<br>";
+            varInnerHTML += "수량: " + amount +"개<br>";
+            varInnerHTML += "총 가격: " + amount*price +"원<br>";
+
+            var $newEleP = "<p id='ele"+eleCnt+"'></p>";
+            $("body").append($newEleP);
+            $("p#ele"+eleCnt).html(varInnerHTML);
+
+            var $newEleBtn = "<button id='ele"+eleCnt+"' class='deleteBtn'></button>";
+            $("p#ele"+eleCnt).append($newEleBtn);
+            $("button#ele"+eleCnt).text("삭제");
+
+            // $("button#ele"+eleCnt).click(function(){
+            $("button.deleteBtn").click(function(){  // jQuery는 이 방법도 가능
+                // 방법 1
+                //this.parentElement.remove();
+                // 방법 2
+                $(this).parent().remove();
+            });
+        }
+        </script>
+</body>
+</html>
