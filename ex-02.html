@@ -30,11 +30,15 @@
         </tr>
     </table>
     <button id="btnInsert" onclick="printValue();">입력</button>
+    <button id = "btnLocationHref" onclick = "f1();">이동 a 태그 처럼</button>
     <!-- </form> -->
     <!-- <div id="print"></div> 예전방식 -->
 
 
     <script>
+        function f1(){
+            location.href = "./ex-01.html?n1=v1";
+        }
         let eleCnt = 0;   // 전역이면서 계속 지속되는 변수 refresh 되면 다시 재정의
         function printValue() {
             var divEle = document.createElement("p");
@@ -65,7 +69,13 @@
             document.body.appendChild(divEle);
 
             document.getElementById("ele_" + eleCnt).onclick = function () {
+            // document.getElementById("ele_" + eleCnt).onclick = function (e) {
                 this.parentElement.remove();
+                
+                // 이렇게 매개변수에 e넣고 사용도 가능
+                // e.target.parentElement.remove(); // e=event
+                // event.target.parentElement.remove();
+
             };
 
         }
