@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="js/jquery-3.6.0.js"></script>
+    <style>
+        #a3 {
+            background-color: greenyellow;
+        }
+    </style>
+    <title>timer show hide</title>
+</head>
+<body>
+    <h1>Stop Watch</h1>
+    <button type="button" id="btnStart">시작하기</button>
+    <button type="button" id="btnPause">멈추기</button>
+    <button type="button" id="btnRecord">기록</button>
+    <button type="button" id="btnStop">정지</button>
+    <div id="a1"></div>
+    <hr>
+    <h1>기록</h1>
+    <div id="a3">
+        <button id="btnShow">펼치기</button>
+        <button id="btnHide">접기</button>
+
+    </div>
+    <hr>
+    <h1>현재시간</h1>
+    <div id="a2"></div>
+
+    <script>  // body 아래에 작성해주면 굳이 loading 필요x
+        // 생략가능 $(function(){
+        let interval1 = 0;
+        let interval2 = 0;
+        let sec = 0;
+        
+        $("#btnStart").click(startWatch);
+        $("#btnPause").click(pauseWatch);
+        $("#btnRecord").click(stopRecord);
+        $("#btnStop").click(stopWatch);
+        $("#btnShow").click(function(){
+            //$(this).next().nextAll().show(1000);
+            $(this).parent().find("p").show(1000);
+        });
+        $("#btnHide").click(function(){
+            // $(this).nextAll().hide(500);
+            $(this).parent().find("p").hide(1000);
+        });
+        
+        function stopRecord(){
+            var contentEle = "<p>"+ sec +"초</p>";
+            $("#a3").append(contentEle);
+        }
+
+        function startWatch(){
+            clearInterval(interval1);
+            interval1 = window.setInterval(function(){
+                sec++;
+                var contentEle = "<p>"+ sec +"초</p>";
+                $("#a1").html(contentEle);
+            }, 100);
+        }
+        function pauseWatch(){
+            clearInterval(interval1);
+        }
+        function stopWatch(){
+            sec = 0;
+            clearInterval(interval1);
+            clearInterval(interval2);
+            // var contentEle = "<p>"+ sec +"초</p>";
+            // $("#a1").html(contentEle);  // 이부분 없을때 있을때 꼭 비교
+            $("#a1").html("");  // 이부분 없을때 있을때 꼭 비교 : 이거하면 화면에서 아예 사라짐
+        }
+
+        // interval2 = setInterval(function () {
+        //     $("#a2").html(func());
+        // }, 10);
+        var func = function () {
+            var d = new Date();
+            // 일자만 표기 console.log(d.getDate());
+            console.log(d.getHours());
+            console.log(d.getMinutes());
+            console.log(d.getSeconds());
+
+            var year = d.getFullYear();
+            var month = d.getMonth() + 1;
+            var date = d.getDate();
+            var day = d.getDay();
+            var hour = d.getHours();
+            var min = d.getMinutes();
+            var sec = d.getSeconds();
+            var milisec = d.getMilliseconds();
+            month = (month > 9 ? "" : "0") + month;
+            date = (date > 9 ? "" : "0") + date;
+            hour = (hour > 9 ? "" : "0") + hour;
+            min = (min > 9 ? "" : "0") + min;
+            sec = (sec > 9 ? "" : "0") + sec;
+            var datestr;
+            switch (day) {
+                case 0: datestr = "일"; break;
+                case 1: datestr = "월"; break;
+                case 2: datestr = "화"; break;
+                case 3: datestr = "수"; break;
+                case 4: datestr = "목"; break;
+                case 5: datestr = "금"; break;
+                case 6: datestr = "토"; break;
+            }
+            return year + "-" + month + "-" + date + " (" + datestr + ") " + hour + ":" + min + ":" + sec + ":" + milisec;
+        }
+        // 생략가능 });
+    </script>
+</body>
+</html>

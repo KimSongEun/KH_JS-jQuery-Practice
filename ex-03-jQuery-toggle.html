@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/jquery-3.6.0.js"></script>
+    <style>
+        #a3 {
+            background-color: greenyellow;
+        }
+    </style>
+    <title>timer show hide</title>
+</head>
+<body>
+    <h1>Stop Watch</h1>
+    <button type="button" id="btnStart">시작하기</button>
+    <button type="button" id="btnPause">멈추기</button>
+    <button type="button" id="btnRecord">기록</button>
+    <button type="button" id="btnStop">정지</button>
+    <div id="a1"></div>
+    <hr>
+    <h1>기록</h1>
+    <div id="a3">
+        <button id="btnShowHide"> 접기 </button>
+        <!-- <button id="btnShowHide"> 펼치기/접기 </button> -->
+    </div>
+    <hr>
+
+    <script>
+        $("#btnShowHide").hide();
+
+        let interval1 = 0;
+        let interval2 = 0;
+        let sec = 0;
+        
+        $("#btnStart").click(startWatch);
+        $("#btnPause").click(pauseWatch);
+        $("#btnRecord").click(stopRecord);
+        $("#btnStop").click(stopWatch);
+        $("#btnShowHide").click(function(){
+            var btnInnerText = $("#btnShowHide").text().trim();
+            if(btnInnerText == "펼치기"){
+                $("#btnShowHide").text("접 기");
+                //$(this).nextAll().show();
+                $(this).parent().find("p").show();
+            } else {
+                $("#btnShowHide").text("펼치기");
+                // $(this).nextAll().hide();
+                $(this).parent().children("p").hide();
+            }
+            // $(this).nextAll().toggle();
+        });
+        $("#btnShow").click(function(){
+            $(this).next().nextAll().show(1000);
+        });
+        $("#btnHide").click(function(){
+            $(this).nextAll().hide(500);
+        });
+        
+        function stopRecord(){
+            $("#btnShowHide").show();
+            var contentEle = "<p>"+ sec +"초</p>";
+            $("#a3").append(contentEle);
+        }
+
+        function startWatch(){
+            clearInterval(interval1);
+            interval1 = window.setInterval(function(){
+                sec++;
+                var contentEle = "<p>"+ sec +"초</p>";
+                $("#a1").html(contentEle);
+            }, 100);
+        }
+        function pauseWatch(){
+            clearInterval(interval1);
+        }
+        function stopWatch(){
+            sec = 0;
+            clearInterval(interval1);
+            clearInterval(interval2);
+            $("#a1").html("");  // 이부분 없을때 있을때 꼭 비교
+        }
+
+    </script>
+</body>
+</html>
