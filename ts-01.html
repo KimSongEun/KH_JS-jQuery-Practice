@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 JS 유효성체크</title>
+    <script>
+        window.addEventListener("load", pageLoadedHandler);
+        // 문제 1
+        // submit 버튼이 눌려지면 btnSubmit함수가 호출되도록 callback 등록
+        function pageLoadedHandler() {
+            document.getElementById("btn1").addEventListener("click", btnSubmit);
+
+        }
+
+        function checkNull(a) {
+            if (a.value.length == 0) {
+                alert("항목을 입력하세요.");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function btnSubmit() {
+            console.log("btnSubmit 진입");
+
+            var pw1 = document.getElementById("pwd");
+            var pw2 = document.getElementById("repwd");
+
+            var pw1value = pw1.value;
+            var pw2value = pw2.value;
+
+            // 문제 2
+            // 입력되지 않은 칸이 있는지 확인
+            var emptyInputs = document.getElementsByTagName("input");
+            for (var i = 0; i < emptyInputs.length; i++) {
+                if (checkNull(emptyInputs[i]) == false) { return false; }
+                // if(inputElements[i].value = "") {return;} // null 체크로 하면 안된다. 
+            }
+
+
+            // 문제 3
+            // 비밀번호와 비밀번호 확인란이 동일하지 않으면 <span id="checkpwd"></span> 에 "동일하게 입력해주세요"
+            if (pw1value != pw2value) {
+                document.getElementById("checkpwd").innerText = "동일하게 입력해주세요";
+                document.getElementById("checkpwd").innerHTML = "<h2>동일하게 입력해주세요</h2>";
+                return false;
+            }
+
+            // 문제 4
+            // 첫글자는 영어소문자이고, 영문자+ 숫자 + 특수문자(!~) 유효, 3글자이상, 6글자 이하
+            // pw1value이 위 조건에 맞게 입력되지 않았다면 alert 띄움.
+            {
+                var regExp = /^[a-z][A-Za-z0-9!~]{2,5}$/;
+                if (!regExp.test(pw1value)) {
+                    alert("영어 대소문자 + 숫자 + 특수문자(!~) 조건에 맞게 입력해주세요");
+                    return false;
+                }
+            }
+
+            // 문제 5
+            // 위 조건을 모두 통과하면 입력된 데이터를 post 방식으로 "a.kh"로 이동.
+            var frmId1 = document.getElementById("frmId1");
+            frmId1.method = "post";
+            frmId1.action = "a.kh";
+            frmId1.submit();
+            // return; 써도 되지만 어차피 끝나는 지점이라 안해도 된다. 
+        }
+    </script>
+</head>
+
+<body>
+    <form id="frmId1">
+        <!-- 문제 6 "회원가입" 문구로 fieldset -->
+        <fieldset>
+            <legend>회원가입</legend>
+            <label for="id">아이디 : </label>
+            <input type="text" id="id" name="id" class="input" required>
+            <span id="checkid"></span>
+            <br><br>
+            <label for="pwd">비밀번호 : </label>
+            <input type="password" id="pwd" name="pwd" class="input" required>
+            <br><br>
+            <label for="repwd">비밀번호 확인 : </label>
+            <input type="password" id="repwd" class="input" required>
+            <span id="checkpwd"></span>
+            <br><br>
+            <button type="button" id="btn1">버튼타입제출</button>
+    </form>
+    </fieldset>
+</body>
+
+</html>

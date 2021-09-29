@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <fieldset>
+        <legend>목록창</legend>
+        <div id="list"></div>
+    </fieldset><br>
+    <!-- 문제 1 -->
+    <!-- 입력 버튼을 누르면 inline 형태로 insertIngredient 호출되게 함. -->
+    <!-- 출력 버튼을 누르면 inline 형태로 printIngredient 호출되게 함. -->
+    <button type="button" id="btnInsert" onclick="insertIngredient();">입력</button>
+    <button id="btnPrint" onclick="printIngredient();">출력</button>
+    <!-- type = "button" 은 생략 가능" -->
+    <script>
+        // 문제 2
+        // 입력 버튼을 누르면 addEventListener를 사용하여 insertIngredient 호출되게 함.
+        // document.getElementById("btnInsert").addEventListener("click", insertIngredient);
+        // 출력 버튼을 누르면 addEventListener를 사용하여 printIngredient 호출되게 함.
+        // document.getElementById("btnPrint").addEventListener("click", printIngredient);
+
+        var member;
+
+        function insertIngredient() {
+            console.log("눌림");
+            // 문제 3
+            // 재료 : // 단가 : // 수량을 prompt 창을 이용하여 입력받아 변수 ingredient, price, amount 에 각각 저장한다.
+            var ingredient = prompt("재료를 적어주세요");
+            var price = prompt("단가를 적어주세요");
+            var amount = prompt("수량을 적어주세요");
+            console.log("재료 : " + ingredient);
+            console.log("단가 : " + price + "원");
+            console.log("수량 : " + amount);
+            // var data = document.createElement("p"); 이 위치에 써줘도 o : 다른 분 답안
+            // document.body.append(data); 이 위치에 써줘도 o : 다른 분 답안
+            member = {
+                ingredient: ingredient,
+                price: price,
+                amount: amount,
+                info: function () {
+                    // 문제 4
+                    /* 입력받은 값이 아래와 같이 출력되도록 작성
+                    재료 : 당근
+                    단가 : 200원
+                    수량 : 3
+                    */
+                    // 여기서는 return만 하면 되니까 이건 안써도 된다. 참고용 코드!! 
+                    // var data = document.createElement("p");
+                    // data.innerHTML = "";
+                    // data.innerHTML += "재료 : " + this.ingredient + "<br>";
+                    // data.innerHTML += "단가 : " + this.price + "<br>";
+                    // data.innerHTML += "수량 : " + this.amount + "<br>";
+                    // data.innerHTML += "------------------<br>";
+                    // document.body.append(data);
+                    // -----------------
+                    // document.innerHTML // 이건 안된다.
+                    // document.write // 이렇게 쓰인다. 근데 여기서는 이게 아니다. 
+
+                    var text = "";
+                    text += "🥗 재료 : " + member.ingredient + "<br>";
+                    text += "💸 단가 : " + member.price + "<br>";
+                    text += "🖐🏻 수량 : " + member.amount + "<br>";
+                    text += "<br>------------------<br><br>";
+                    return text;
+                }
+
+            }
+            // member.info(); 여기서 출력하지 않고, 출력 누르면 출력하기!!
+        }
+        function printIngredient() {
+            // 문제 5
+            // 입력된 데이터가 있다면 아래와 같이 출력
+            if (member != undefined) {
+                document.getElementById("list").innerHTML = member.info();
+            }
+
+            else {
+                alert("입력을 먼저 진행해주세요");
+            }
+        }
+    </script>
+</body>
+
+</html>
