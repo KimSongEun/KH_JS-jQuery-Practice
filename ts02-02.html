@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <fieldset>
+        <legend>목록창</legend>
+        <div id="list"></div>
+    </fieldset><br>
+    <!-- 문제 1 -->
+    <!-- 입력 버튼을 누르면 inline 형태로 insertIngredient 호출되게 함. -->
+    <!-- 출력 버튼을 누르면 inline 형태로 printIngredient 호출되게 함. -->
+    <button id="btnInsert" onclick="insertIngredient();">입력</button>
+    <button id="btnPrint" onclick="printIngredient();">출력</button>
+    <script>
+        // 문제 2
+        // 입력 버튼을 누르면 addEventListener를 사용하여 insertIngredient 호출되게 함.
+        // document.getElementById("btnInsert").addEventListener("click", insertIngredient);
+        // 출력 버튼을 누르면 addEventListener를 사용하여 printIngredient 호출되게 함.
+        // document.getElementById("btnPrint").addEventListener("click", printIngredient);
+
+        var member;
+        function insertIngredient() {
+            console.log("입력 눌림");
+            // 문제 3
+            // 재료 : // 단가 : // 수량을 prompt 창을 이용하여 입력받아 변수 ingredient, price, amount 에 각각 저장한다.
+            var ingredient = prompt("재료를 적어주세요");
+            var price = prompt("단가를 적어주세요");
+            var amount = prompt("수량을 적어주세요");
+            console.log("재료 : " + ingredient);
+            console.log("단가 : " + price + "원");
+            console.log("수량 : " + amount);
+
+            member = {
+                ingredient: ingredient,
+                price: price,
+                amount: amount,
+                info: function () {
+                    // 문제 4
+                    /* 입력받은 값이 아래와 같이 출력되도록 작성
+                    재료 : 당근
+                    단가 : 200원
+                    수량 : 3
+                    */
+                    var text = "";
+                    text += "🥗 재료 : " + member.ingredient + "<br>";
+                    text += "💸 단가 : " + member.price + "<br>";
+                    text += "🖐🏻 수량 : " + member.amount + "<br><br>";
+                    return text;
+                }
+            }
+        }
+        let eleCnt = 0;
+        function printIngredient() {
+            console.log("출력 눌림");
+            // 문제 5
+            // 입력된 데이터가 있다면 
+            if (member != undefined) {
+                // member.info를 이용하여 출력데이터를 list div 안에 p태그로 하나씩 추가되고 해당 p 태그 다음에 삭제버튼도 추가         
+                eleCnt++;
+                var data = document.createElement("p");
+                data.innerHTML = member.info();
+                var delBtn = document.createElement("button");
+                delBtn.setAttribute("id", "ele_" + eleCnt);
+                delBtn.setAttribute("style", "background-color: pink");
+                delBtn.innerText = eleCnt + "번 삭제";
+                data.appendChild(delBtn);
+                document.getElementById("list").appendChild(data);
+
+                document.getElementById("ele_" + eleCnt).onclick = del;
+            }
+
+            else {
+                alert("입력을 먼저 진행해주세요");
+            }
+        }
+
+        // 문제 6
+        // 삭제버튼을 누르면 해당 p 태그(삭제버튼 이전 p 태그)가 삭제
+        function del() {
+            this.parentElement.remove();
+        };
+    </script>
+</body>
+
+</html>

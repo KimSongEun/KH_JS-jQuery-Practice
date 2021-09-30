@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button type = "submit" onclick = "return f3()">실행</button>
+    <script>
+        console.log(f5("3", 2));
+        console.log(f5("3"));
+        console.log(f5("3", 2.5));
+        console.log(f5("3", 2, 5, 3));
+
+        function f5(a, b, c){
+            console.log("f5진입");
+            console.log(a); 
+            console.log(b);
+            console.log(c);
+            var result = 1;
+            if(a != undefined){
+                result *= a;
+            }
+            if(b != undefined){
+                result *= b;
+            }
+            if(c != undefined){
+                result *= c;
+            }
+            return result;
+        }
+
+
+
+        f1();
+        f3(); // 호출했지만 호출만하고 땡. return 값은 어디에도 나오지 않음.
+        var v1 = f2();
+        if (v1) {
+            console.log("f2결과가 참");
+        }
+        function f1(){
+            console.log("f1진입");
+            return;
+        }
+        function f2(){
+            console.log("f2진입");
+            return true;
+        }
+        function f3(){
+            console.log("f3진입");
+            return false;
+        }
+
+    </script>
+
+</body>
+</html>

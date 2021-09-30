@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- window.onload = function(){이 안에 script 작성}; -->
+</head>
+
+<body>
+    <p id="p1"></p>
+    <script>
+        var obj = {
+            attr1: "hello",
+            attr2: "javascript",
+            attr3: function () { console.log("이건 obj객체의 att3의 함수값임"); },
+            attr4: function () { return "이건 obj객체의 att4의 함수값임" }
+        };
+        console.log(obj.attr1); // 방법1
+        console.log(obj["attr1"]); // 방법2
+        // console.log("이건 obj객체의 att3의 함수값임") 실행
+        console.log(obj.attr3()); // return 값이 없는 경우 : undefined
+        obj.attr3();
+        console.log(obj.attr3); // 함수 모양 자체가 나옴
+        // console.log가 꼭 필요한 경우
+        console.log(obj.attr4()); // return 하는 경우
+
+        console.log(obj.attr3.value); // undefined
+        console.log(obj.attr2.length); // 10
+
+        var a;
+        console.log(a); // undefined
+        // console.log(a.value); // 오류
+        // console.log(a.length); // 오류
+        // console.log(b); // 오류 => 인터프리터 언어 특성 상 밑의 코드는 실행x 
+
+        console.log(document.getElementById("p1").innerHTML); // 아무것도 x
+        console.log(document.getElementById("p1")); // <p id = "p1"></p>
+        console.log(document.getElementById("p1").value); // undefined
+        console.log(document.getElementById("p2")); // null
+
+        // "3"과 3은 == 비교시 같음
+        // "3"과 3은 === 비교시 다름
+        var a = "3";
+        var b = 3;
+        if (a === b) {
+            console.log("T");
+        } else {
+            console.log("F");
+        }
+
+        var a = "안녕";
+        var b = "하세요";
+
+        var temp = b;
+        b = a;
+        a = temp;
+        console.log(b+a);
+
+        var obj = {"Korea" : "Seoul",
+                   "US" : "Washington D.C",
+                   "China" : "Beijing",
+                   "France" : "Paris"};
+        for (var key in obj) {
+            document.write(key, ":", obj[key], "<br>");
+        }
+        document.write("--------------<br>");
+        var obj2 = {Korea : "Seoul",
+                   US : "Washington D.C",
+                   China : "Beijing",
+                   France : "Paris"};
+        for (var key in obj2) {
+            document.write(key, ":", obj2[key], "<br>");
+        }
+        document.write("--------------<br>");
+        var obj3 = {Korea : Seoul, // 오류 발생
+                   US : "Washington D.C",
+                   China : "Beijing",
+                   France : "Paris"};
+        for (var key in obj3) {
+            document.write(key, ":", obj3[key], "<br>");
+        }
+        document.write("--------------<br>");
+    </script>
+</body>
+
+</html>
