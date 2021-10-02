@@ -15,27 +15,60 @@
     <!-- 테이블 안에 글과 선 사이 간격이 10px 씩 떨어지게 함. -->
     <style>
         table {
-            border : 1px solid black; 
+            border: 1px solid black;
             border-collapse: collapse;
         }
-        th, td {
-            padding : 10px;
+
+        th,
+        td {
+            padding: 10px;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>JS 엑셀같은 표 계산</title>
     <script>
-        window.onload = function() {
+        window.onload = function () {
             // 문제 2
             // 수량 입력란에는 초기값으로 1이 세팅되어 있음.
-            var e1 = document.getElementById("d1")
+            var e1 = document.getElementById("d1");
+            var e2 = document.getElementById("d2");
+            var e3 = document.getElementById("d3");
             e1.value = 1;
+            e2.value = 1;
+            e3.value = 1;
 
-            document.getElementById("t1").value = e1.value*2500;
+            document.getElementById("t1").value = e1.value * 2500;
+            document.getElementById("t2").value = e2.value * 3000;
+            document.getElementById("t3").value = e3.value * 4500;
 
             // 문제 3
             // 수량을 입력하고 focus가 out 되면 합계 계산되어 표시됨.
+
+            e1.onblur = update;
+            e2.onblur = update;
+            e3.onblur = update;
+
+            function update() {
+                console.log("눌림");
+                var a1 = document.getElementById("d1").value;
+                var a2 = document.getElementById("d2").value;
+                var a3 = document.getElementById("d3").value;
+
+                a1 = isNaN(a1)? 0 : a1*1;
+                a2 = isNaN(a2)? 0 : a2*1;
+                a3 = isNaN(a3)? 0 : a3*1;
+
+                document.getElementById("t1").value= 2500 * a1;
+                document.getElementById("t2").value= 3000 * a2;
+                document.getElementById("t3").value= 4500 * a3;
+
+                document.getElementById("count").value = a1+a2+a3;
+                document.getElementById("price").value = a1*2500 + a2*3000 + a3*4500;
+
+
+            }
         }
+
     </script>
 </head>
 
@@ -58,25 +91,26 @@
                 <td>양파</td>
                 <td>3000원</td>
                 <td><input type="text" id="d2"></td>
-                <td><input type="text"></td>
+                <td><input type="text" id="t2"></td>
             </tr>
             <tr>
                 <td>고구마</td>
                 <td>4500원</td>
                 <td><input type="text" id="d3"></td>
-                <td><input type="text"></td>
+                <td><input type="text" id="t3"></td>
             </tr>
             <tr>
                 <th>합계</th>
                 <th></th>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
+                <td><input type="text" id = "count"></td>
+                <td><input type="text" id = "price"></td>
             </tr>
             <tr>
                 <td colspan="4">
                     <input type="button" value="계산하기">
                     <!-- 문제 4 -->
                     <!-- 초기화 버튼을 만들고 누르면 입력한 데이터가 초기화됨. -->
+                    <button type="reset">초기화</button>
                 </td>
             </tr>
         </table>
