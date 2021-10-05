@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <style>
+        #a1 {
+            width : 300px;
+            height : 700px;
+            background-color : yellowgreen;
+        }
+    </style> -->
+    <title>구구단 timer</title>
+</head>
+
+<body>
+    <!-- 멈추기 버튼추가 id는 btn1을 사용함 -->
+    <button id="btn1">멈추기</button>
+    <h1>구구단</h1>
+
+
+    <script>
+        // 페이지가 열기면
+        $(function () {
+            let dan = 2;
+            let su = 1;
+            // "구구단" h1 태그 아래 구구단 2단(2*1=1)부터 보여지도록 id가 a1인 div태그를 사용함.
+            // id가 a1인 태그의 크기는 넓이 300*700 px, 배경색은 yellowgreen
+            var newDiv = "<div id = 'a1'><div>";
+            console.log(newDiv);
+            console.log($(newDiv));
+            // $("body").append(newDiv);
+            $(newDiv).appendTo($("body"));
+
+
+            $("#a1").css("width", "300px");
+            // $("#a1").css("height", "700px");
+            $("#a1").css("background-color", "yellowgreen");
+
+            // 1초마다 (2*1=1), (2*2=4), (2*3=6) 순차적으로 p 태그를 생성하여 화면에 추가적으로 나타냄
+            // 2*9=18 이후 3*1=3 이 표시된.
+            // 답안
+            var intervalGGD = window.setInterval(f1, 1000);
+            function f1() {
+                var newP = "<p class = 'p1'>" + dan + "*" + su + "=" + (dan * su) + "</P>"
+                $("#a1").append(newP);  // $(newP).appendTo($("#a1"));
+                su++;
+                if (su == 10) { dan++; su = 1; }
+                if (dan == 10) { dan = 2; su = 1; }
+
+            }
+            // id btn1 버튼이 눌려지면 구구단은 더이상 보여지지 않음.
+            $("#btn1").click(function () {
+                console.log(intervalGGD);
+                window.clearInterval(intervalGGD);
+            });
+
+            // for문 시도
+            // for (var dan = 2; dan <10; dan++) {
+            //     for(var su = 1; su<10; su++) {
+            //         var newP =  "<p class = 'p1'>" + dan + "*" + su + "=" + (dan * su) + "</P>";
+            //             $("#a1").append(newP);  // $(newP).appendTo($("#a1"));
+            //             wait(1000);
+            //     }
+            // }
+        });
+
+
+    </script>
+</body>
+
+</html>

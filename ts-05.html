@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/jquery-3.6.0.js"></script>
+
+    <title>구구단 timer</title>
+</head>
+
+<body>
+    <!-- 멈추기 버튼추가 id는 btn1을 사용함 -->
+    <button id="btn1">멈추기</button>
+    <h1>구구단</h1>
+
+
+    <script>
+        // 페이지가 열리면
+        // "구구단" h1 태그 아래 구구단 2단(2*1=1)부터 보여지도록 id가 a1인 div태그를 사용함.
+        // id가 a1인 태그의 크기는 넓이 300*700 px, 배경색은 yellowgreen
+        console.log("시작");
+        var ele = "<div id = 'a1'></div>";
+        $("body").append(ele);
+        $("#a1").css({ "width": "300px", "height": "700px", "background-color": "yellowgreen" });
+        // 1초마다 (2*1=1), (2*2=4), (2*3=6) 순차적으로 p 태그를 생성하여 화면에 추가적으로 나타냄
+        // 2*9=18 이후 3*1=3 이 표시된.
+        let x = 2;
+        let y = 0;
+
+        console.log("나오나");
+        // for 시도 => 이용할 필요가 없다고 하심x 1초마다 한번씩 업데이트 시켜줘야하는데, for문은 1초마다 한번씩 수행하게 만들 수가 없다. 
+        // var interval = window.setInterval(function () {
+        //     for (x = 2; x < 10; x++) {
+        //         for (y = 1; y < 10; y++) {
+        //             var p = "<p>" + x + "*" + y + "=" + (x * y);
+        //             $("#a1").append(p);
+        //         }
+        //     }
+        // }, 1000);
+
+        // if 시도
+        var interval = window.setInterval(function () {
+            // x++;
+            if (x < 10) {
+                y++;
+                var p = "<p>" + x + "*" + y + "=" + (x * y) + "</p>";
+                $("#a1").append(p);
+                if (y >= 9) {
+                    x++;
+                    y = 0;
+                }
+            }
+        }, 100);
+
+        // id btn1 버튼이 눌려지면 구구단은 더이상 보여지지 않음.
+        $("#btn1").click(function () {
+            console.log("멈추기 눌림");
+            clearInterval(interval);
+        });
+    </script>
+</body>
+
+</html>

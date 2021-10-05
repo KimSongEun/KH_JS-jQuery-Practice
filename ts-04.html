@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/jquery-3.6.0.js"></script>
+    <title>Color</title>
+    <style>
+        #colorBox {
+            width: 150px;
+            height: 150px;
+            border: 1px solid black;
+            margin-bottom: 20px;
+            background-color: silver;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            $("#btnRed").click(changeColorByInnerText);
+            $("#btnBlue").click(changeColorByInnerText);
+            $("#btnYellow").click(changeColorByInnerText);
+            function changeColorByInnerText() {
+                $("#colorBox").css("background", $(this).text());
+            }
+
+            $("#btnCcc").click(changeColor);
+            $("#colorValue").keydown(function (event) {
+                if (event.keyCode == 13) {   //  keyCode 13 은 enter key
+                    event.stopPropagation();
+                    event.preventDefault();   // 중첩이벤트 없앰.
+                    changeColor();
+                }
+            });
+
+            $("#colorValue").select(function () {
+                console.log(this);
+            });
+
+            function changeColor() {
+                var color = $('input[id=colorValue]').val();
+                $("#colorBox").css("background", "#" + color);
+            }
+        });
+        function changeSelectOption() {
+            var index = $(":selected").index();
+            console.log(index);
+            var color = $(":selected").val();
+            console.log(color);
+            $("#colorBox").css("background", color);
+        }
+    </script>
+</head>
+
+<body>
+    <div id="colorBox"></div>
+    <div>
+        <button id="btnRed" class="btn">red</button>
+        <button id="btnBlue" class="btn">blue</button>
+        <button id="btnYellow" class="btn">yellow</button>
+        <button id="btnCcc" class="btn">#ccc</button>
+        <hr>
+        Color Code 입력 후 enter <input type="text" name="color" id="colorValue">
+        <hr>
+        <!-- 보이기 숨기기를 누르면 위 colorBox가 보였다 안보였다 동작 -->
+        <button id="btn1">보이기</button>
+        <button id="btn2">숨기기</button>
+        <script>
+            $("#btn1").click(function () {
+                console.log("보이기 눌림");
+                $("#colorBox").show(1000);
+                // id가 없다면
+                // $(this).parent().prev().show(1000);
+            });
+            $("#btn2").click(function () {
+                console.log("숨기기 눌림");
+                $("#colorBox").hide(1000);
+                // id가 없다면
+                // $(this).parent().prev().hide(1000);
+                // $(this).parent().find(".btn").hide(1000); // 그 아래의 버튼도 안보이게 해보기
+            });
+        </script>
+    </div>
+</body>
+</html>

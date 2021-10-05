@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 문제 1 -->
+    <!-- 기본 css reset 세팅 -->
+    <!-- 테이블 선은 1줄로 보이게 함 -->
+    <!-- 테이블 안에 글과 선 사이 간격이 10px 씩 떨어지게 함. -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>JS 엑셀같은 표 계산</title>
+    <script>
+        window.onload = function() {
+            // 문제 2
+            // 수량 입력란에는 초기값으로 1이 세팅되어 있음.
+            var e1 = document.getElementById("d1")
+            var e2 = document.getElementById("d2")
+            var e3 = document.getElementById("d3")
+            e1.value = 1;
+            e2.value = 1;
+            e3.value = 1;
+
+            document.getElementById("t1").value = e1.value*2500;
+            document.getElementById("t2").value = e2.value*3000;
+            document.getElementById("t3").value = e3.value*4500;
+
+            // document.getElementById("c1").value = parseInt(e1.value)+parseInt(e2.value)+parseInt(e3.value);
+            // document.getElementById("p1").value = e1.value*2500+e2.value*3000+e3.value*4500;
+
+            // 문제 3
+            // 수량을 입력하고 focus가 out 되면 합계 계산되어 표시됨.
+            e1.onblur = update;
+            e2.onblur = update;
+            e3.onblur = update;
+        }
+        function update(){
+            var v1 = document.getElementById("d1").value;
+            var v2 = document.getElementById("d2").value;
+            var v3 = document.getElementById("d3").value;
+
+            if(isNaN(v1)) v1 = 0; else v1 = parseInt(v1);
+            if(isNaN(v2)) v2 = 0; else v2 = parseInt(v2);
+            if(isNaN(v3)) v3 = 0; else v3 = parseInt(v3);
+
+            document.getElementById("t1").value = v1*2500;
+            document.getElementById("t2").value = v2*3000;
+            document.getElementById("t3").value = v3*4500;
+
+            document.getElementById("c1").value = v1+v2+v3;
+            document.getElementById("p1").value = v1*2500+v2*3000+v3*4500;
+
+        }
+    </script>
+</head>
+
+<body>
+    <form action="#" method="get" id="frmCal">
+        <table border="1">
+            <tr>
+                <th>재료</th>
+                <th>단가</th>
+                <th>수량</th>
+                <th>합계</th>
+            </tr>
+            <tr>
+                <td>당근</td>
+                <td>2500원</td>
+                <td><input type="text" id="d1"></td>
+                <td><input type="text" id="t1"></td>
+            </tr>
+            <tr>
+                <td>양파</td>
+                <td>3000원</td>
+                <td><input type="text" id="d2"></td>
+                <td><input type="text" id="t2"></td>
+            </tr>
+            <tr>
+                <td>고구마</td>
+                <td>4500원</td>
+                <td><input type="text" id="d3"></td>
+                <td><input type="text" id="t3"></td>
+            </tr>
+            <tr>
+                <th>합계</th>
+                <th></th>
+                <td><input type="text" id="c1"></td>
+                <td><input type="text" id="p1"></td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <input type="button" value="계산하기">
+                    <!-- 문제 4 -->
+                    <!-- 초기화 버튼을 만들고 누르면 입력한 데이터가 초기화됨. -->
+                    <input type="reset" value="초기화">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>
