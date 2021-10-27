@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Top Menu</title>
+    <style>
+        * {
+            margin : 0;
+            padding : 0;
+        }
+        body {
+            margin-left : 50px;
+        }
+        nav>ul>li {
+            list-style: none;
+            float: left;
+            width: 100px;
+            height: 50px;
+            background-color: #ccc;
+            text-align: center;
+            line-height: 50px;
+        }
+        nav>ul>li>a {
+            text-decoration: none;
+            color : black;
+            display : block;
+        }
+        nav>ul>li>a:hover {
+            background-color: gray;
+            font-weight: bold;
+            font-size: 1.2em; 
+            transition-duration: 1s;
+        }
+        section {
+            clear: both;
+            width : 300px;
+            background-color: blanchedalmond;
+        }
+        section>div {
+            display: none;
+        }
+        .img-box {
+            position: relative;
+        }
+        .img-box>img {
+            width : 200px;
+            height: 200px;
+        }
+        .img-box>img:hover {
+            z-index: 1;
+            transform: scale(1.2);
+            transition-duration: 1s;
+        }
+        #f1 {
+            position : absolute;
+            left: 0;
+        }
+        #f2 {
+            position : absolute;
+            left: 60px;
+        }
+        #f3 {
+            position : absolute;
+            left: 120px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="./d.html">London</a></li>
+            <li><a href="./e.html">Paris</a></li>
+            <li><a href="./c.html">Tokyo</a></li>
+        </ul>
+    </nav>
+    <section>
+        <div>
+            London~~~
+        </div>
+        <div>
+            Paris~~~
+        </div>
+        <div>
+            Tokyo~~~
+        </div>
+    </section>
+
+    <script>
+        // 방법1
+        // $("li:first-child").hover(function(){
+        //     $("div").hide();
+        //     $("div:first-child").show();
+        // });
+        // $("li:nth-of-type(2)").hover(function(){
+        //     $("div").hide();
+        //     $("div:nth-of-type(2)").show();
+        // });
+
+        // 방법2
+        $("li").hover(function(){
+            // $(this).parents("nav").next().children().first().show(); 테스트
+            var selectedIdx = $(this).index(); // 이렇게 해주면 li가 몇째인데 를 알 수 있었다. 
+            $(this).parents("nav").next().children().each(function(index,value){
+                $(this).hide();
+                if(index==selectedIdx) {
+                    $(this).show();
+                }
+            });
+        });
+    </script>
+
+    <div class="img-box">
+        <img id="f1" src="./images/뿌뿌.png">
+        <img id="f2" src="./images/윙크.png">
+        <img id="f3" src="./images/하이.png">
+    </div>
+    <div>
+        <svg width="400" height="100">
+            <rect width="400" height="100"
+            style="fill:rgb(5,245,25);stroke-width:10;stroke:rgb(0,0,0)" />
+            Sorry, your browser does not support inline SVG. Now that you found out that your browser is not capable
+            of playing at least one of the formats, you may want to add support for the missing format to play all
+            HTML5 videos regardless of codec.
+            </svg>
+    </div>
+
+</body>
+</html>
