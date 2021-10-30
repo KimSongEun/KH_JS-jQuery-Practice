@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCS Test 1</title>
+    <script>
+        function sizeToMeter(){
+            console.log("눌림");
+            var size = document.getElementById("size1").value;
+            var meter = size / 0.3025;
+            document.getElementById("meter1").value = meter.toFixed(2);
+        }
+
+        function meterToSize(){
+            console.log("눌림");
+            var size = document.getElementById("meter2").value;
+            var meter = size * 0.3025;
+            document.getElementById("size2").value = meter.toFixed(2);
+        }
+    </script>
+
+</head>
+<body>
+    <h2>평 m2 계산기</h2>
+
+    <label for = "size1">평 : </label>
+    <input type = "text" name = "size1" size = "10" id = "size1"> ->
+    <label for = "meter1"> m2 : </label> 
+    <input type = "text" name = "meter1" size = "10" readonly id = "meter1">
+    <button onclick="sizeToMeter();">변환</button>
+
+    <br>
+    <label for = "meter2">m2 : </label>
+    <input type = "text" name = "meter2" size = "10" id = "meter2"> ->
+    <label for = "size2"> 평 : </label> 
+    <input type = "text" name = "size2" size = "10" readonly id = "size2">
+    <button onclick="meterToSize();">변환</button>
+
+
+</body>
+</html>

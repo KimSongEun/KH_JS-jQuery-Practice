@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 평가자체크리스트</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #area {
+            width: 150px;
+            height: 40px;
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn1">보이기</button>
+    <button id="btn2">숨기기</button>
+    <button id="btn3">멈추기</button>
+    <h1 id="area"></h1>
+    <script>
+        var interval1;
+        $(document).ready(function () {
+            console.log("시작");
+            var a = 0;
+            interval1 = window.setInterval(function () {
+                var cont = "<span class = 'aa'>" + a + "</span>";
+                $("#area").append(cont);
+                if (a < 10) {
+                    a++;
+                } else if (a == 10) {
+                    $(".aa").remove();
+                    a = 0;
+                }
+
+
+            }, 500);
+
+            $("#btn1").click(addFunction);
+            $("#btn2").click(hideFunction);
+            $("#btn3").click(stopFunction);
+
+        });
+
+        function addFunction() {
+            console.log("보이기 눌림");
+            $("#area").show(500);
+        };
+
+        function hideFunction() {
+            console.log("숨기기 눌림");
+            $("#area").hide(500);
+        };
+
+        function stopFunction() {
+            console.log("멈추기 눌림");
+            clearInterval(interval1);
+        };
+    </script>
+</body>
+
+</html>
